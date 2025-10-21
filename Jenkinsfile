@@ -4,6 +4,7 @@ pipeline {
         jdk 'JKD21'
     }
     stages {
+        // update
         stage('Display a message'){
             steps{
                 echo 'hello from github'
