@@ -13,25 +13,33 @@ pipeline {
         stage('Compile code')
         {
         steps {
-            sh 'mvn compile'
+            withMaven(maven: 'mymaven') {
+                sh 'mvn compile'
+            }
         }
         }
+        
         stage('Test code')
         {
         steps {
-            sh 'mvn test '
+            withMaven(maven: 'mymaven') {
+                sh 'mvn test'
+            }
         }
         post{
             success {
-                junit allowEmptyResults: true, testResults: '**/target/surfire-reports/*.xml'
+                junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+            }
+        }
+        }
+        
+        stage('Package code')
+        {
+            steps {
+                withMaven(maven: 'mymaven') {
+                    sh 'mvn package'
                 }
             }
         }
-        stage('Package code')
-            {
-                steps {
-                    sh 'mvn package '
-                }
-            }
     }
 }
