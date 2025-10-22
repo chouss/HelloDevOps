@@ -12,15 +12,19 @@ pipeline {
         }
     stage('Compile') {
             steps {
-                echo '🔧 Compiling source code...'
-                sh 'mvn clean compile'
+                echo 'Compiling source code...'
+                withMaven(maven: 'mymaven') {
+                    sh 'mvn clean compile'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                echo '🧪 Running unit tests...'
-                sh 'mvn test'
+                echo 'Running unit tests...'
+                withMaven(maven: 'mymaven') {
+                    sh 'mvn test'
+                }
             }
             post {
                 always {
@@ -31,8 +35,10 @@ pipeline {
 
         stage('Package') {
             steps {
-                echo '📦 Packaging the application...'
-                sh 'mvn clean package'
+                echo ' Packaging the application...'
+                withMaven(maven: 'mymaven') {
+                    sh 'mvn clean package'
+                }
             }
         }
     }
