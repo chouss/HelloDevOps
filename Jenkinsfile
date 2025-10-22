@@ -13,32 +13,25 @@ pipeline {
     stage('Compile') {
             steps {
                 echo 'Compiling source code...'
-                withMaven(maven: 'mymaven') {
-                    sh 'mvn clean compile'
-                }
+                sh './mvnw clean compile'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running unit tests...'
-                withMaven(maven: 'mymaven') {
-                    sh 'mvn test'
-                }
+                sh './mvnw test'
+            }
             }
             post {
                 always {
                     junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                 }
             }
-        }
-
         stage('Package') {
             steps {
                 echo ' Packaging the application...'
-                withMaven(maven: 'mymaven') {
-                    sh 'mvn clean package'
-                }
+                sh './mvnw clean package'
             }
         }
     }
