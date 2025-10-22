@@ -1,8 +1,8 @@
-    pipeline {
+pipeline {
     agent any
-    tools {
-        maven 'mymaven'
-    }
+    // tools {
+    //     maven 'mymaven'
+    // }
     stages {
         stage('Checkout code')
         {
@@ -14,7 +14,7 @@
         {
         steps {
             sh 'chmod +x mvnw'
-            sh 'mvn clean install'
+            sh './mvnwn clean install'
         }
         post{
                 success {
@@ -25,7 +25,7 @@
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv(installationName: 'MySonarQubeServer', credentialsId: 'sonarqubePWD') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=country-service -Dsonar.projectB"
+                    sh "./mvnw sonar:sonar -Dsonar.projectKey=country-service -Dsonar.projectB"
                     }
             }
         }
