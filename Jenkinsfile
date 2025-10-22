@@ -22,12 +22,8 @@ pipeline {
                 echo 'Running unit tests...'
                 sh './mvnw test'
             }
-            }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-                }
-            }
+        }
+
         stage('Package') {
             steps {
                 echo ' Packaging the application...'
