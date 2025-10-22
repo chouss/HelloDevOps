@@ -14,7 +14,7 @@ pipeline {
         {
         steps {
             sh 'chmod +x mvnw'
-            sh './mvnwn clean install'
+            sh './mvnw clean install'
         }
         post{
                 success {
