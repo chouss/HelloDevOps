@@ -1,26 +1,37 @@
 pipeline {
     agent any
     tools {
-        jdk 'JKD21'
+        maven 'mymaven'
     }
     stages {
-        // update
-        stage('Display a message'){
-            steps{
-                echo 'hello from github'
+        stage('Checkout code')
+        {
+        steps {
+            git branch: 'master', url: 'https://github.com/chouss/HelloDevOps.git'
+        }
+        }
+        stage('Compile code')
+        {
+        steps {
+            sh 'mvn compile'
+        }
+        }
+        stage('Test code')
+        {
+        steps {
+            sh 'mvn test '
+        }
+        post{
+            success {
+                junit allowEmptyResults: true, testResults: '**/target/surfire-reports/*.xml'
+                }
             }
         }
-        stage('Checkout code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/chouss/HelloDevOps.git', credentialsId: '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'
+        stage('Package code')
+            {
+                steps {
+                    sh 'mvn package '
+                }
             }
-        }
-        stage('Compile code') {
-            steps {
-                sh 'chmod +x mvnw'
-                sh './mvnw clean package'
-            }
-        }
     }
-
 }
