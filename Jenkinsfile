@@ -13,6 +13,7 @@ pipeline {
     stage('Compile') {
             steps {
                 echo 'Compiling source code...'
+                sh 'chmod +x mvnw'
                 sh './mvnw clean compile'
             }
         }
