@@ -7,7 +7,7 @@ pipeline {
         // update
         stage('Display a message'){
             steps{
-                echo 'hello from github'
+                echo 'hello from github!'
             }
         }
         stage('Checkout code') {
