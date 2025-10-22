@@ -10,35 +10,29 @@ pipeline {
             git branch: 'main', url: 'https://github.com/chouss/HelloDevOps.git'
         }
         }
-        stage('Compile code')
-        {
-        steps {
-            withMaven(maven: 'mymaven') {
-                sh 'mvn compile'
+    stage('Compile') {
+            steps {
+                echo '🔧 Compiling source code...'
+                sh 'mvn clean compile'
             }
         }
-        }
-        
-        stage('Test code')
-        {
-        steps {
-            withMaven(maven: 'mymaven') {
+
+        stage('Test') {
+            steps {
+                echo '🧪 Running unit tests...'
                 sh 'mvn test'
             }
-        }
-        post{
-            success {
-                junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+                }
             }
         }
-        }
-        
-        stage('Package code')
-        {
+
+        stage('Package') {
             steps {
-                withMaven(maven: 'mymaven') {
-                    sh 'mvn package'
-                }
+                echo '📦 Packaging the application...'
+                sh 'mvn clean package'
             }
         }
     }
