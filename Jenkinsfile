@@ -37,7 +37,7 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war, target/*.jar', onlyIfSuccessful: true
             }
         }
-            //Tomcat
+            // Tomcat:
         stage('Deploy to Tomcat Server') {
             steps {
                 echo 'Initiating deployment to remote Tomcat server...'
