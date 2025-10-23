@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-                //  => Nexus
+                //  => Nexus:
         stage('Publish Artifact to Nexus') {
             steps {
                 echo 'Publishing artifact to Nexus Repository...'
